@@ -3,53 +3,25 @@ const yearLinks = document.querySelectorAll("#year-list a");
 const subcategoryList = document.getElementById("subcategory-list");
 const subcategoryTitle = document.getElementById("subcategory-title");
 
-// Image config: year → place → filenames
+// Only list subcategories (no filenames needed!)
 const imagesByYear = {
-  "2025": {
-    "Germany": ["1.jpg"]
-  },
-  "2024": {
-    "Japan": ["1.jpg", "2.jpg"]
-  },
-  "2023": {
-    "Canada": ["1.jpg", "2.jpg", "3.jpg"]
-  },
-  "2022": {
-    "Australia": ["2023.jpg"],
-    "Estonia": ["2022.jpg"]
-  },
-  "2021": {
-    "Norway": ["1.jpg"]
-  },
-  "2020": {
-    "Spain": ["1.jpg", "2.jpg"]
-  },
-  "2019": {
-    "France": ["1.jpg"]
-  },
-  "2018": {
-    "Portugal": ["1.jpg", "2.jpg"]
-  },
-  "2017": {
-    "USA": ["1.jpg"]
-  },
-  "2016": {
-    "Mexico": ["1.jpg"]
-  },
-  "2015": {
-    "Thailand": ["1.jpg"]
-  },
-  "2014": {
-    "UK": ["1.jpg"]
-  },
-  "2013": {
-    "Italy": ["1.jpg"]
-  }
+  "2025": { "Germany": true },
+  "2024": { "Japan": true },
+  "2023": { "Canada": true },
+  "2022": { "Australia": true, "Estonia": true },
+  "2021": { "Norway": true },
+  "2020": { "Spain": true },
+  "2019": { "France": true },
+  "2018": { "Portugal": true },
+  "2017": { "USA": true },
+  "2016": { "Mexico": true },
+  "2015": { "Thailand": true },
+  "2014": { "UK": true },
+  "2013": { "Italy": true }
 };
 
 let currentYear = "2025";
 
-// Load list of places when a year is clicked
 const loadSubcategories = (year) => {
   currentYear = year;
   const subcategories = Object.keys(imagesByYear[year] || {});
@@ -75,39 +47,18 @@ const loadSubcategories = (year) => {
     : `<p>No places listed for ${year} yet.</p>`;
 };
 
-// Load and display the images for a place
 const loadImages = (year, subcategory) => {
-  gallery.innerHTML = "";
-  const files = (imagesByYear[year] && imagesByYear[year][subcategory]) || [];
+  gallery.innerHTML = "<p>Loading images...</p>";
 
-  if (!files.length) {
-    gallery.innerHTML = `<p>No images found for ${subcategory} in ${year}.</p>`;
-    return;
-  }
+  fetch(`images/${year}/${subcategory}/manifest.txt`)
+    .then(response => {
+      if (!response.ok) throw new Error("Manifest not found");
+      return response.text();
+    })
+    .then(text => {
+      const files = text
+        .split("\n")
+        .map(line => line.trim())
+        .filter(name => name.length > 0); // Ignore empty lines
 
-  files.forEach((file, index) => {
-    const link = document.createElement("a");
-    link.href = `images/${year}/${subcategory}/${file}`;
-    link.setAttribute("data-lightbox", `${year}-${subcategory}`);
-    link.setAttribute("data-title", `${subcategory} (${year}) — Image ${index + 1}`);
-
-    const img = document.createElement("img");
-    img.src = `images/${year}/${subcategory}/${file}`;
-    img.alt = `${subcategory} image ${index + 1}`;
-
-    link.appendChild(img);
-    gallery.appendChild(link);
-  });
-};
-
-// Set up event listeners for year links
-yearLinks.forEach(link => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-    const year = link.dataset.year;
-    loadSubcategories(year);
-  });
-});
-
-// Load default year on page load
-loadSubcategories(currentYear);
+      gallery.innerHTML
