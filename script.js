@@ -1,9 +1,9 @@
 const gallery = document.getElementById("gallery");
-const yearLinks = document.querySelectorAll("#year-list a");
+const yearLinks = document.querySelectorAll("#year-list a, .year-list a");
 const subcategoryList = document.getElementById("subcategory-list");
 const subcategoryTitle = document.getElementById("subcategory-title");
 
-// Only list subcategories (no filenames needed!)
+// Define available subcategories per year
 const imagesByYear = {
   "2025": { "Germany": true },
   "2024": { "Japan": true },
@@ -59,7 +59,7 @@ const loadImages = (year, subcategory) => {
       const files = text
         .split("\n")
         .map(line => line.trim())
-        .filter(name => name.length > 0); // Ignore empty lines
+        .filter(name => name.length > 0);
 
       gallery.innerHTML = "";
 
@@ -83,7 +83,6 @@ const loadImages = (year, subcategory) => {
     });
 };
 
-// Handle year clicks
 yearLinks.forEach(link => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
@@ -92,5 +91,14 @@ yearLinks.forEach(link => {
   });
 });
 
-// Load default year
+// Toggle year groups open/close
+document.querySelectorAll(".toggle-year").forEach(header => {
+  header.addEventListener("click", () => {
+    const target = document.getElementById(header.dataset.target);
+    const isCollapsed = target.classList.toggle("collapsed");
+    header.textContent = header.textContent.replace(isCollapsed ? "−" : "+", isCollapsed ? "+" : "−");
+  });
+});
+
+// Default load
 loadSubcategories(currentYear);

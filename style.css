@@ -1,6 +1,8 @@
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  color: #111;
 }
 
 .container {
@@ -9,31 +11,53 @@ body {
 }
 
 .sidebar {
-  width: 200px;
-  background: #f7f7f7;
+  width: 220px;
+  background: #f9f9f9;
   padding: 1rem;
   border-right: 1px solid #ddd;
+  overflow-y: auto;
 }
 
-.sidebar h2 {
+.site-title h1 {
+  font-family: 'Playfair Display', serif;
   font-size: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sidebar h2,
+.sidebar h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .sidebar ul {
   list-style: none;
-  padding: 0;
+  padding-left: 0;
 }
 
 .sidebar li a {
   display: block;
-  padding: 0.5rem 0;
-  color: black;
+  padding: 0.4rem 0;
+  color: #222;
   text-decoration: none;
+  font-size: 0.95rem;
 }
 
 .sidebar li a:hover {
   text-decoration: underline;
+}
+
+.toggle-year {
+  cursor: pointer;
+  user-select: none;
+}
+
+.year-list.collapsed {
+  display: none;
 }
 
 .gallery {
@@ -49,27 +73,9 @@ body {
   height: auto;
   object-fit: cover;
   border-radius: 8px;
+  transition: transform 0.3s ease;
 }
 
-#subcategory-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 0.5rem;
-}
-
-#subcategory-list li a {
-  color: #333;
-  text-decoration: none;
-  font-size: 0.95rem;
-  display: block;
-  padding: 0.25rem 0;
-}
-
-#subcategory-list li a:hover {
-  text-decoration: underline;
-}
-
-.sidebar a.active {
-  font-weight: bold;
-  color: #007acc;
+.gallery img:hover {
+  transform: scale(1.02);
 }
