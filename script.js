@@ -6,7 +6,7 @@ const subcategoryTitle = document.getElementById("subcategory-title");
 // Image config: year → place → filenames
 const imagesByYear = {
   "2025": {
-    "Germany": ["1.jpg", "2.jpg"]
+    "Germany": ["1.jpg"]
   },
   "2024": {
     "Japan": ["1.jpg", "2.jpg"]
