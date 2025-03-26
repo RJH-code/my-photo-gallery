@@ -73,27 +73,3 @@ body {
   font-weight: bold;
   color: #007acc;
 }
-
-.gallery img {
-  transition: transform 0.3s ease;
-}
-
-.gallery img:hover {
-  transform: scale(1.03);
-}
-
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .gallery {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-}

@@ -3,6 +3,7 @@ const yearLinks = document.querySelectorAll("#year-list a");
 const subcategoryList = document.getElementById("subcategory-list");
 const subcategoryTitle = document.getElementById("subcategory-title");
 
+// Image config: year → place → filenames
 const imagesByYear = {
   "2025": {
     "Germany": ["1.jpg", "2.jpg"]
@@ -14,8 +15,8 @@ const imagesByYear = {
     "Canada": ["1.jpg", "2.jpg", "3.jpg"]
   },
   "2022": {
-    "Australia": ["2023.jpg"],
-    "Estonia": ["2022.jpg"]
+    "Australia": ["1.jpg", "2.jpg", "3.jpg"],
+    "Estonia": ["1.jpg", "2.jpg"]
   },
   "2021": {
     "Norway": ["1.jpg"]
@@ -48,6 +49,7 @@ const imagesByYear = {
 
 let currentYear = "2025";
 
+// Load list of places when a year is clicked
 const loadSubcategories = (year) => {
   currentYear = year;
   const subcategories = Object.keys(imagesByYear[year] || {});
@@ -73,6 +75,7 @@ const loadSubcategories = (year) => {
     : `<p>No places listed for ${year} yet.</p>`;
 };
 
+// Load and display the images for a place
 const loadImages = (year, subcategory) => {
   gallery.innerHTML = "";
   const files = (imagesByYear[year] && imagesByYear[year][subcategory]) || [];
@@ -83,13 +86,21 @@ const loadImages = (year, subcategory) => {
   }
 
   files.forEach((file, index) => {
+    const link = document.createElement("a");
+    link.href = `images/${year}/${subcategory}/${file}`;
+    link.setAttribute("data-lightbox", `${year}-${subcategory}`);
+    link.setAttribute("data-title", `${subcategory} (${year}) — Image ${index + 1}`);
+
     const img = document.createElement("img");
     img.src = `images/${year}/${subcategory}/${file}`;
-    img.alt = `${year} ${subcategory} image ${index + 1}`;
-    gallery.appendChild(img);
+    img.alt = `${subcategory} image ${index + 1}`;
+
+    link.appendChild(img);
+    gallery.appendChild(link);
   });
 };
 
+// Set up event listeners for year links
 yearLinks.forEach(link => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
@@ -98,4 +109,5 @@ yearLinks.forEach(link => {
   });
 });
 
+// Load default year on page load
 loadSubcategories(currentYear);

@@ -4,7 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Photo Gallery</title>
+
+  <!-- Main CSS -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Lightbox CSS -->
+  <link href="lightbox2/css/lightbox.min.css" rel="stylesheet" />
 </head>
 <body>
   <div class="container">
@@ -27,19 +32,23 @@
         <li><a href="#" data-year="2013">2013</a></li>
       </ul>
 
-      <!-- Subcategories (Places) -->
+      <!-- Subcategories -->
       <div id="subcategory-section" style="margin-top: 2rem;">
         <h3 id="subcategory-title" style="display:none;">Places</h3>
         <ul id="subcategory-list"></ul>
       </div>
     </aside>
 
-    <!-- Main gallery -->
+    <!-- Gallery Display -->
     <main class="gallery" id="gallery">
       <p>Select a year and place to view images.</p>
     </main>
   </div>
 
+  <!-- Custom JS -->
   <script src="script.js"></script>
+
+  <!-- Lightbox JS -->
+  <script src="lightbox2/js/lightbox-plus-jquery.min.js"></script>
 </body>
 </html>
