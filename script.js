@@ -61,4 +61,36 @@ const loadImages = (year, subcategory) => {
         .map(line => line.trim())
         .filter(name => name.length > 0); // Ignore empty lines
 
-      gallery.innerHTML
+      gallery.innerHTML = "";
+
+      files.forEach((file, index) => {
+        const link = document.createElement("a");
+        link.href = `images/${year}/${subcategory}/${file}`;
+        link.setAttribute("data-lightbox", `${year}-${subcategory}`);
+        link.setAttribute("data-title", `${subcategory} (${year}) — Image ${index + 1}`);
+
+        const img = document.createElement("img");
+        img.src = `images/${year}/${subcategory}/${file}`;
+        img.alt = `${subcategory} image ${index + 1}`;
+
+        link.appendChild(img);
+        gallery.appendChild(link);
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      gallery.innerHTML = `<p>Could not load images for ${subcategory} in ${year}.</p>`;
+    });
+};
+
+// Handle year clicks
+yearLinks.forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const year = link.dataset.year;
+    loadSubcategories(year);
+  });
+});
+
+// Load default year
+loadSubcategories(currentYear);
