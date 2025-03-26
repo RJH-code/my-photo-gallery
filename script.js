@@ -3,23 +3,50 @@ const yearLinks = document.querySelectorAll("#year-list a");
 const subcategoryList = document.getElementById("subcategory-list");
 const subcategoryTitle = document.getElementById("subcategory-title");
 
-// Images organized by year -> subcategory -> files
 const imagesByYear = {
   "2025": {
-    "Australia": ["1.jpg", "2.jpg"],
-    "Estonia": ["1.jpg"]
+    "Germany": ["1.jpg", "2.jpg"]
   },
   "2024": {
-    "Japan": ["1.jpg"],
-    "Norway": ["1.jpg", "2.jpg", "3.jpg"]
+    "Japan": ["1.jpg", "2.jpg"]
   },
   "2023": {
-    "Canada": ["1.jpg"]
+    "Canada": ["1.jpg", "2.jpg", "3.jpg"]
+  },
+  "2022": {
+    "Australia": ["1.jpg", "2.jpg", "3.jpg"],
+    "Estonia": ["1.jpg", "2.jpg"]
+  },
+  "2021": {
+    "Norway": ["1.jpg"]
+  },
+  "2020": {
+    "Spain": ["1.jpg", "2.jpg"]
+  },
+  "2019": {
+    "France": ["1.jpg"]
+  },
+  "2018": {
+    "Portugal": ["1.jpg", "2.jpg"]
+  },
+  "2017": {
+    "USA": ["1.jpg"]
+  },
+  "2016": {
+    "Mexico": ["1.jpg"]
+  },
+  "2015": {
+    "Thailand": ["1.jpg"]
+  },
+  "2014": {
+    "UK": ["1.jpg"]
+  },
+  "2013": {
+    "Italy": ["1.jpg"]
   }
-  // Add more years/subcategories here...
 };
 
-let currentYear = "2025"; // Default
+let currentYear = "2025";
 
 const loadSubcategories = (year) => {
   currentYear = year;
@@ -41,7 +68,9 @@ const loadSubcategories = (year) => {
     subcategoryList.appendChild(li);
   });
 
-  gallery.innerHTML = "<p>Select a place to view photos.</p>";
+  gallery.innerHTML = subcategories.length
+    ? "<p>Select a place to view photos.</p>"
+    : `<p>No places listed for ${year} yet.</p>`;
 };
 
 const loadImages = (year, subcategory) => {
@@ -69,5 +98,4 @@ yearLinks.forEach(link => {
   });
 });
 
-// Load default year’s subcategories
 loadSubcategories(currentYear);
