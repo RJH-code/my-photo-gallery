@@ -15,8 +15,8 @@ const imagesByYear = {
     "Canada": ["1.jpg", "2.jpg", "3.jpg"]
   },
   "2022": {
-    "Australia": ["1.jpg", "2.jpg", "3.jpg"],
-    "Estonia": ["1.jpg", "2.jpg"]
+    "Australia": ["2023.jpg"],
+    "Estonia": ["2022.jpg"]
   },
   "2021": {
     "Norway": ["1.jpg"]
