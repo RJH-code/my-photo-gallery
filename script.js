@@ -3,7 +3,6 @@ const yearLinks = document.querySelectorAll("#year-list a, .year-list a");
 const subcategoryList = document.getElementById("subcategory-list");
 const subcategoryTitle = document.getElementById("subcategory-title");
 
-// Define available subcategories per year
 const imagesByYear = {
   "2025": { "Germany": true },
   "2024": { "Japan": true },
@@ -91,7 +90,7 @@ yearLinks.forEach(link => {
   });
 });
 
-// Toggle year groups open/close
+// Toggle year group (+/-)
 document.querySelectorAll(".toggle-year").forEach(header => {
   header.addEventListener("click", () => {
     const target = document.getElementById(header.dataset.target);
@@ -100,5 +99,22 @@ document.querySelectorAll(".toggle-year").forEach(header => {
   });
 });
 
-// Default load
+// Load default year
 loadSubcategories(currentYear);
+
+// 🌙 Dark Mode Toggle
+const toggleBtn = document.getElementById("dark-toggle");
+
+const applyDarkMode = (enabled) => {
+  document.body.classList.toggle("dark", enabled);
+  toggleBtn.textContent = enabled ? "☀️ Light Mode" : "🌙 Dark Mode";
+  localStorage.setItem("darkMode", enabled);
+};
+
+const darkPref = localStorage.getItem("darkMode") === "true";
+applyDarkMode(darkPref);
+
+toggleBtn.addEventListener("click", () => {
+  const isDark = document.body.classList.contains("dark");
+  applyDarkMode(!isDark);
+});
