@@ -16,7 +16,7 @@ const imagesByYear = {
   "2016": { "Mexico": true },
   "2015": { "Thailand": true },
   "2014": { "UK": true },
-  "2013": { "Italy": true }
+  "2013": { "Estonia": true, "Finland": true }
 };
 
 let currentYear = "2025";
@@ -63,17 +63,28 @@ const loadImages = (year, subcategory) => {
       gallery.innerHTML = "";
 
       files.forEach((file, index) => {
-        const link = document.createElement("a");
-        link.href = `images/${year}/${subcategory}/${file}`;
-        link.setAttribute("data-lightbox", `${year}-${subcategory}`);
-        link.setAttribute("data-title", `${subcategory} (${year}) — Image ${index + 1}`);
+        const filePath = `images/${year}/${subcategory}/${file}`;
+        const extension = file.split('.').pop().toLowerCase();
 
-        const img = document.createElement("img");
-        img.src = `images/${year}/${subcategory}/${file}`;
-        img.alt = `${subcategory} image ${index + 1}`;
+        if (["jpg", "jpeg", "png", "webp", "gif"].includes(extension)) {
+          const link = document.createElement("a");
+          link.href = filePath;
+          link.setAttribute("data-lightbox", `${year}-${subcategory}`);
+          link.setAttribute("data-title", `${subcategory} (${year}) — Image ${index + 1}`);
 
-        link.appendChild(img);
-        gallery.appendChild(link);
+          const img = document.createElement("img");
+          img.src = filePath;
+          img.alt = `${subcategory} image ${index + 1}`;
+
+          link.appendChild(img);
+          gallery.appendChild(link);
+        } else if (extension === "mp4") {
+          const video = document.createElement("video");
+          video.src = filePath;
+          video.controls = true;
+          video.classList.add("gallery-video");
+          gallery.appendChild(video);
+        }
       });
     })
     .catch(err => {

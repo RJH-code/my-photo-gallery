@@ -6,7 +6,7 @@ cd /d "%~dp0images"
 for /d %%Y in (*) do (
   for /d %%C in ("%%Y\*") do (
     > "%%C\manifest.txt" (
-      for %%I in ("%%C\*.jpg" "%%C\*.jpeg" "%%C\*.png" "%%C\*.webp") do (
+      for %%I in ("%%C\*.jpg" "%%C\*.jpeg" "%%C\*.png" "%%C\*.webp" "%%C\*.gif" "%%C\*.mp4") do (
         echo %%~nxI
       )
     )
